@@ -1,0 +1,163 @@
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <script>
+        $(function() {
+            $.ajax ({
+                url: "news.php",
+                dataType: "xml",
+                success: function(data) {
+                    var $items = $(data).find("item");
+                    
+                    if ($items.length > 0) {
+                        // $items = $items.slice(0, 10);     // 10개만 잘라서
+                        var $ulTag = $("<ul />");
+                        $.each ($items, function(i, o) {
+                            var $title = $(o).find("title").text();
+                            var $link = $(o).find("link").text();
+
+                            var $aTag = $("<a />")
+                            .attr({
+                                "href":$link,
+                                "target":"_blank"
+                            })
+                            .text($title);
+
+                            var $liTag = $("<li />")
+                            .append($aTag);
+
+                            $ulTag.append($liTag);
+                        });
+                        $(".wrap").append($ulTag);
+                    }
+                }
+            })
+        });
+    </script>
+
+    <div class = "wrap"></div>
+
+
+    <!-- #php 기본 문법
+    <?
+        php코드
+    ?>
+
+    <?
+        $변수명 = 값;
+    ?> -->
+
+    <!-- #다른 사이트 도메인 교차 통신을 할 수 없다. -->
+
+    <!--
+    <script>
+        $(function() {
+            $.ajax({
+                url: "https://www.chosun.com/arc/outboundfeeds/rss/?outputType=xml",
+                dataType: "xml",
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    </script>
+
+    <div class = "wrap"></div> -->
+
+
+    <!-- json 읽어서 html로 보내기 #.ajax -->
+
+    <!-- <script>
+        $(function () {
+            $.ajax ({
+                url: "dataset.xml",
+                dataType: "xml",
+                success: function(data) {
+                    var $data = $(data).find("record");
+
+                    if ($data.length > 0) {
+                        var tb = $("<table />");
+                        $.each ($data, function(i, o) {
+                            var $id = $(o).find("id").text();
+                            var $first_name = $(o).find("first_name").text();
+                            var $last_name = $(o).find("last_name").text();
+                            var $email = $(o).find("email").text();
+
+                            var row = $("<tr />").append (
+                                $("<td />").text($id),
+                                $("<td />").text($first_name),
+                                $("<td />").text($last_name),
+                                $("<td />").text($email)
+                            );
+                            tb.append(row);
+                        });
+                        $(".wrap").append(tb);
+                    }
+                }
+            })
+        });
+    </script>
+
+    <div class = "wrap"></div> -->
+
+    <!-- json 읽어서 html로 보내기 #.ajax -->
+
+    <!-- <script>
+        $(function() {
+            $.ajax ({
+                url: "MOCK_DATA.json",
+                dataType: "json",
+                success: function(data) {
+                    if (data.length > 0) {
+                        var tb = $("<table />");
+                        for (var i in data) {
+                            var $id = data[i].id;
+                            var $first_name = data[i].first_name;
+                            var $last_name = data[i].last_name;
+                            var $email = data[i].email;
+
+                            var row = $("<tr />").append (
+                                $("<td />").text($id),
+                                $("<td />").text($first_name),
+                                $("<td />").text($last_name),
+                                $("<td />").text($email)
+                            );
+                            tb.append(row);
+                        }
+                        $(".wrap").append(tb);
+                    }
+                }
+            })
+        });
+    </script>
+
+    <div class = "wrap"></div> -->
+
+
+    <!-- HTML 조립하기 # load() 메서드 -->
+    <!--
+    <script>
+        $(function() {
+            $("#newsWrap_1")
+                .load("news.html #news_1");
+
+            $("#newsWrap_2")
+                .load("news.html #news_2");
+        })
+    </script>
+    
+    <div id = "newsWrap_1"></div>
+
+    <div id = "newsWrap_2"></div>
+    -->
+
+</body>
+
+</html>
